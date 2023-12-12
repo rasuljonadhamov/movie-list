@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
-
 import "./App.css";
+import MoviList from "./components/MovieList/MoviList";
 
 function App() {
-  const [data, setDate] = useState(0);
+  const [movies, setMovies] = useState([]);
 
-  function handleClick() {
-    setDate(data + 1);
+  async function getMovies() {
+    const data = await fetch(
+      "http://www.omdbapi.com/?s=star wars&apikey=b59f7f34"
+    );
+    const res = await data.json();
+
+    setMovies(res.Search);
   }
 
   useEffect(() => {
-    console.log("hello");
-  });
+    getMovies();
+  }, []);
 
-  return (
-    <>
-      <h1>{data}</h1>
-      <button onClick={handleClick}>Ok</button>
-    </>
-  );
+  return <>{<MoviList moviess={movies} />}</>;
 }
 
 export default App;
