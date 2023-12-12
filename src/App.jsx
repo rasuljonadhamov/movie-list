@@ -7,8 +7,10 @@ import SearchBar from "./components/SearchBar/SearchBar";
 function App() {
   const [movies, setMovies] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function getMovies(searchValue) {
+    setLoading(true);
     const data = await fetch(
       `http://www.omdbapi.com/?s=${searchValue}&apikey=b59f7f34`
     );
@@ -17,6 +19,7 @@ function App() {
     if (res.Search) {
       setMovies(res.Search);
     }
+    setLoading(false);
   }
 
   function handleSearch(e) {
@@ -37,7 +40,16 @@ function App() {
           setSearchValue={setSearchValue}
         />
       </div>
-      <div className="movielist-wrapper">{<MoviList moviess={movies} />}</div>
+      <div className="movielist-wrapper">
+        {loading ? (
+          <div className="lds-ripple">
+            <div></div>
+            <div></div>
+          </div>
+        ) : (
+          <MoviList moviess={movies} />
+        )}
+      </div>
     </>
   );
 }
