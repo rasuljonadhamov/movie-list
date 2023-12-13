@@ -1,7 +1,7 @@
 function MoviList(props) {
   return (
     <div className="movies-wrapper">
-      {props.moviess.map((movie) => (
+      {props.movies.map((movie) => (
         <div key={movie.imdbID} className="movie">
           <img src={movie.Poster} alt={movie.title} />
           <h2>{movie.Title}</h2>

@@ -47,7 +47,7 @@ function App() {
             <div></div>
           </div>
         ) : (
-          <MoviList moviess={movies} />
+          <MoviList movies={movies} />
         )}
       </div>
     </>
